@@ -13,13 +13,12 @@ export interface Book {
 export const books: Book[] = [
   {
     id: 1,
-    title: "O Velho e o Mar",
-    author: "Ernest Hemingway",
+    title: "Sabor Amargo",
+    author: "James Hannaham",
     price: 25,
     images: [
-      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=600&fit=crop&q=80",
-      "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&h=600&fit=crop&q=80"
+      "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/sabor_amargo.jpg",
+      "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/sabor_amargo_2.jpg"
     ],
     condition: "Bom estado",
     description: "Edição clássica da obra-prima de Hemingway. Capa em bom estado, páginas levemente amareladas pelo tempo, mas texto perfeitamente legível. Uma história atemporal sobre perseverança e a luta do homem contra a natureza."

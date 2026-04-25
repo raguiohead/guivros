@@ -1,17 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: 'images.unsplash.com', // Mantém o Unsplash se ainda for usar provisoriamente
+      },
+      {
+        protocol: 'https',
+        hostname: 'ukghebfwessjubykqqwb.supabase.co', // Substitua pelo ID do seu projeto Supabase (está na sua NEXT_PUBLIC_SUPABASE_URL)
       },
     ],
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

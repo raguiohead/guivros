@@ -13,6 +13,50 @@ interface BookPageProps {
   params: Promise<{ id: string }>
 }
 
+function renderInlineLinks(text: string) {
+  const linkRegex = /<a\s+href=['\"]([^'\"]+)['\"][^>]*>(.*?)<\/a>/gi
+  const nodes: React.ReactNode[] = []
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    const [fullMatch, href, label] = match
+    const startIndex = match.index
+
+    if (startIndex > lastIndex) {
+      nodes.push(text.slice(lastIndex, startIndex))
+    }
+
+    nodes.push(
+      <a
+        key={`${href}-${startIndex}`}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline underline-offset-4 hover:opacity-80"
+      >
+        {label}
+      </a>
+    )
+
+    lastIndex = startIndex + fullMatch.length
+  }
+
+  if (lastIndex < text.length) {
+    nodes.push(text.slice(lastIndex))
+  }
+
+  return nodes
+}
+
+function renderDescription(description: string) {
+  return description.split("\n").map((line, index) => (
+    <p key={index}>
+      {renderInlineLinks(line)}
+    </p>
+  ))
+}
+
 export async function generateStaticParams() {
   return books.map(book => ({
     id: book.id.toString()
@@ -78,9 +122,9 @@ export default async function BookPage({ params }: BookPageProps) {
 
             <div className="space-y-4 mb-8">
               <h2 className="text-sm font-medium text-foreground">Sobre este exemplar</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {book.description}
-              </p>
+              <div className="text-sm text-muted-foreground leading-relaxed space-y-3">
+                {renderDescription(book.description)}
+              </div>
             </div>
 
             <WhatsAppButton title={book.title} price={formatPrice(book.price)} />

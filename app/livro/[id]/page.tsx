@@ -10,7 +10,7 @@ import { BookGallery } from "@/components/book-gallery"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 
 interface BookPageProps {
-  params: { id: string }
+  params: Promise<{ id: string }>
 }
 
 export async function generateStaticParams() {
@@ -19,8 +19,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function BookPage({ params }: BookPageProps) {
-  const book = getBookById(Number(params.id))
+export default async function BookPage({ params }: BookPageProps) {
+  const { id } = await params
+  const book = getBookById(Number(id))
 
   if (!book) {
     notFound()

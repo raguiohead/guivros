@@ -1,23 +1,26 @@
-"use client"
-
-import { use, useState } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, MessageCircle, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowLeft, MessageCircle } from "lucide-react"
+import { books } from "@/lib/books"
 import { getBookById } from "@/lib/books"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
+import { BookGallery } from "@/components/book-gallery"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 
 interface BookPageProps {
-  params: Promise<{ id: string }>
+  params: { id: string }
+}
+
+export async function generateStaticParams() {
+  return books.map(book => ({
+    id: book.id.toString()
+  }))
 }
 
 export default function BookPage({ params }: BookPageProps) {
-  const { id } = use(params)
-  const book = getBookById(Number(id))
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const book = getBookById(Number(params.id))
 
   if (!book) {
     notFound()
@@ -28,26 +31,6 @@ export default function BookPage({ params }: BookPageProps) {
       style: "currency",
       currency: "BRL",
     }).format(price)
-  }
-
-  const handleWhatsAppClick = () => {
-    const phoneNumber = "5585998125976"
-    const message = `Olá! Tenho interesse no livro "${book.title}" por ${formatPrice(book.price)} que vi no site guivros e afins.`
-    const encodedMessage = encodeURIComponent(message)
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
-    window.open(whatsappUrl, "_blank")
-  }
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === book.images.length - 1 ? 0 : prev + 1
-    )
-  }
-
-  const prevImage = () => {
-    setCurrentImageIndex((prev) => 
-      prev === 0 ? book.images.length - 1 : prev - 1
-    )
   }
 
   const conditionColor = {
@@ -72,72 +55,7 @@ export default function BookPage({ params }: BookPageProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           {/* Image Gallery */}
-          <div className="space-y-3">
-            <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg bg-muted">
-              <Image
-                src={book.images[currentImageIndex]}
-                alt={`${book.title} - Imagem ${currentImageIndex + 1}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-              />
-              
-              {/* Navigation arrows */}
-              {book.images.length > 1 && (
-                <>
-                  <button
-                    onClick={prevImage}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
-                    aria-label="Imagem anterior"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={nextImage}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
-                    aria-label="Próxima imagem"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </>
-              )}
-
-              {/* Image counter */}
-              {book.images.length > 1 && (
-                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-background/80 backdrop-blur-sm border border-border text-xs text-foreground">
-                  {currentImageIndex + 1} / {book.images.length}
-                </div>
-              )}
-            </div>
-
-            {/* Thumbnails */}
-            {book.images.length > 1 && (
-              <div className="flex gap-2 justify-center">
-                {book.images.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`relative w-16 h-20 rounded-md overflow-hidden border-2 transition-all ${
-                      index === currentImageIndex 
-                        ? "border-foreground" 
-                        : "border-transparent opacity-60 hover:opacity-100"
-                    }`}
-                    aria-label={`Ver imagem ${index + 1}`}
-                    aria-current={index === currentImageIndex}
-                  >
-                    <Image
-                      src={image}
-                      alt={`${book.title} - Miniatura ${index + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="64px"
-                    />
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          <BookGallery title={book.title} images={book.images} />
 
           {/* Book Details */}
           <div className="flex flex-col">
@@ -164,14 +82,7 @@ export default function BookPage({ params }: BookPageProps) {
               </p>
             </div>
 
-            <Button
-              onClick={handleWhatsAppClick}
-              size="lg"
-              className="w-full gap-2"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Entrar em contato
-            </Button>
+            <WhatsAppButton title={book.title} price={formatPrice(book.price)} />
 
             <p className="text-xs text-muted-foreground text-center mt-3">
               Você será redirecionado para o WhatsApp

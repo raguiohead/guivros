@@ -1,15 +1,15 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, MessageCircle } from "lucide-react"
-import { books } from "@/lib/books"
-import { getBookById } from "@/lib/books"
+import { things } from "@/lib/things"
+import { getThingById } from "@/lib/things"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { BookGallery } from "@/components/book-gallery"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 
-interface BookPageProps {
+interface ThingPageProps {
   params: Promise<{ id: string }>
 }
 
@@ -58,16 +58,16 @@ function renderDescription(description: string) {
 }
 
 export async function generateStaticParams() {
-  return books.map(book => ({
-    id: book.id.toString()
+  return things.map(thing => ({
+    id: thing.id.toString()
   }))
 }
 
-export default async function BookPage({ params }: BookPageProps) {
+export default async function ThingPage({ params }: ThingPageProps) {
   const { id } = await params
-  const book = getBookById(Number(id))
+  const thing = getThingById(Number(id))
 
-  if (!book) {
+  if (!thing) {
     notFound()
   }
 
@@ -100,34 +100,34 @@ export default async function BookPage({ params }: BookPageProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           {/* Image Gallery */}
-          <BookGallery title={book.title} images={book.images} />
+          <BookGallery title={thing.title} images={thing.images} />
 
-          {/* Book Details */}
+          {/* Detalhes do item */}
           <div className="flex flex-col">
-            <span className={`self-start text-xs px-2.5 py-1 rounded-full mb-3 ${conditionColor[book.condition]}`}>
-              {book.condition}
+            <span className={`self-start text-xs px-2.5 py-1 rounded-full mb-3 ${conditionColor[thing.condition]}`}>
+              {thing.condition}
             </span>
 
             <h1 className="font-serif text-2xl md:text-3xl text-foreground mb-1 text-balance">
-              {book.title}
+              {thing.title}
             </h1>
             
             <p className="text-muted-foreground mb-4">
-              {book.author}
+              {thing.author}
             </p>
 
             <p className="text-3xl font-medium text-foreground mb-6">
-              {formatPrice(book.price)}
+              {formatPrice(thing.price)}
             </p>
 
             <div className="space-y-4 mb-8">
               <h2 className="text-sm font-medium text-foreground">Sobre este exemplar</h2>
               <div className="text-sm text-muted-foreground leading-relaxed space-y-3">
-                {renderDescription(book.description)}
+                {renderDescription(thing.description)}
               </div>
             </div>
 
-            <WhatsAppButton title={book.title} price={formatPrice(book.price)} />
+            <WhatsAppButton title={thing.title} price={formatPrice(thing.price)} />
 
             <p className="text-xs text-muted-foreground text-center mt-3">
               Você será redirecionado para o WhatsApp

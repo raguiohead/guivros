@@ -1,10 +1,12 @@
 import { Header } from "@/components/header"
-import { BookGrid } from "@/components/book-grid"
+import { ThingGrid } from "@/components/thing-grid"
 import { Footer } from "@/components/footer"
-import { books } from "@/lib/books"
+import { things } from "@/lib/things"
 import { BookOpen } from "lucide-react"
 
 export default function Home() {
+  const booksCount = things.filter((thing) => thing.type === "livro").length
+
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
@@ -26,8 +28,8 @@ export default function Home() {
         {/* Stats Bar */}
         <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8 py-3 sm:py-4 border-y border-border">
           <div className="text-center">
-            <span className="block text-base sm:text-xl font-medium text-foreground">{books.length}</span>
-            <span className="text-[10px] sm:text-xs text-muted-foreground">livros</span>
+            <span className="block text-base sm:text-xl font-medium text-foreground">{booksCount}</span>
+            <span className="block text-[10px] sm:text-xs text-muted-foreground">livros</span>
           </div>
           <div className="text-center border-x border-border">
             <span className="block text-base sm:text-xl font-medium text-foreground">Usados</span>
@@ -39,8 +41,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Books Grid */}
-        <BookGrid books={books} />
+        {/* Itens Grid */}
+        <ThingGrid things={things} />
       </main>
       
       <Footer />

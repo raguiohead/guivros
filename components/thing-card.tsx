@@ -2,13 +2,13 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import type { Book, BookCondition } from "@/lib/books"
+import type { Thing, BookCondition } from "@/lib/things"
 
-interface BookCardProps {
-  book: Book
+interface ThingCardProps {
+  thing: Thing
 }
 
-export function BookCard({ book }: BookCardProps) {
+export function ThingCard({ thing }: ThingCardProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("pt-BR", {
       style: "currency",
@@ -23,39 +23,39 @@ export function BookCard({ book }: BookCardProps) {
   }
 
   return (
-    <Link href={`/livro/${book.id}`}>
+    <Link href={`/livro/${thing.id}`}>
       <article className="group flex flex-col bg-card rounded-lg border border-border overflow-hidden transition-all duration-200 hover:shadow-lg hover:border-muted-foreground/20 h-full">
         <div className="relative aspect-[2/3] w-full overflow-hidden bg-muted">
           <Image
-            src={book.images[0]}
-            alt={`Capa do livro ${book.title}`}
+            src={thing.images[0]}
+            alt={`Capa do item ${thing.title}`}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
-          <span className={`absolute top-2 left-2 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${conditionColor[book.condition]}`}>
-            {book.condition}
+          <span className={`absolute top-2 left-2 text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full ${conditionColor[thing.condition]}`}>
+            {thing.condition}
           </span>
-          {book.images.length > 1 && (
+          {thing.images.length > 1 && (
             <span className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full text-muted-foreground border border-border">
-              +{book.images.length - 1} fotos
+              +{thing.images.length - 1} fotos
             </span>
           )}
         </div>
-        
+
         <div className="flex flex-col flex-1 p-3 sm:p-4 gap-2 sm:gap-3">
           <div className="flex-1 space-y-0.5 sm:space-y-1">
             <h3 className="font-serif text-sm sm:text-base leading-tight text-foreground line-clamp-2 text-balance">
-              {book.title}
+              {thing.title}
             </h3>
             <p className="text-xs sm:text-sm text-muted-foreground line-clamp-1">
-              {book.author}
+              {thing.author}
             </p>
           </div>
-          
+
           <div className="flex items-center justify-between gap-2">
             <span className="text-base sm:text-lg font-medium text-foreground">
-              {formatPrice(book.price)}
+              {formatPrice(thing.price)}
             </span>
           </div>
         </div>

@@ -14,7 +14,7 @@ export function WhatsAppButton({ title, price }: WhatsAppButtonProps) {
     const message = `Olá! Tenho interesse no livro "${title}" por ${price} que vi no site guivros e afins.`
     const encodedMessage = encodeURIComponent(message)
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
-    window.open(whatsappUrl, "_blank")
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer")
   }
 
   return (

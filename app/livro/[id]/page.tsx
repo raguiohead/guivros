@@ -1,60 +1,16 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowLeft, MessageCircle } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { things } from "@/lib/things"
 import { getThingById } from "@/lib/things"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Button } from "@/components/ui/button"
 import { BookGallery } from "@/components/book-gallery"
+import { ThingDescription } from "@/components/thing-description"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 
 interface ThingPageProps {
   params: Promise<{ id: string }>
-}
-
-function renderInlineLinks(text: string) {
-  const linkRegex = /<a\s+href=['\"]([^'\"]+)['\"][^>]*>(.*?)<\/a>/gi
-  const nodes: React.ReactNode[] = []
-  let lastIndex = 0
-  let match: RegExpExecArray | null
-
-  while ((match = linkRegex.exec(text)) !== null) {
-    const [fullMatch, href, label] = match
-    const startIndex = match.index
-
-    if (startIndex > lastIndex) {
-      nodes.push(text.slice(lastIndex, startIndex))
-    }
-
-    nodes.push(
-      <a
-        key={`${href}-${startIndex}`}
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="underline underline-offset-4 hover:opacity-80"
-      >
-        {label}
-      </a>
-    )
-
-    lastIndex = startIndex + fullMatch.length
-  }
-
-  if (lastIndex < text.length) {
-    nodes.push(text.slice(lastIndex))
-  }
-
-  return nodes
-}
-
-function renderDescription(description: string) {
-  return description.split("\n").map((line, index) => (
-    <p key={index}>
-      {renderInlineLinks(line)}
-    </p>
-  ))
 }
 
 export async function generateStaticParams() {
@@ -123,7 +79,7 @@ export default async function ThingPage({ params }: ThingPageProps) {
             <div className="space-y-4 mb-8">
               <h2 className="text-sm font-medium text-foreground">Sobre este exemplar</h2>
               <div className="text-sm text-muted-foreground leading-relaxed space-y-3">
-                {renderDescription(thing.description)}
+                <ThingDescription content={thing.description} />
               </div>
             </div>
 

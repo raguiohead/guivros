@@ -20,24 +20,6 @@ export function AccessibilityMenu() {
   const [fontSize, setFontSize] = useState<FontSize>("normal")
   const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    setMounted(true)
-    const savedTheme = localStorage.getItem("theme") as Theme | null
-    const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
-    
-    if (savedTheme) {
-      setTheme(savedTheme)
-      applyTheme(savedTheme)
-    } else {
-      applyTheme("system")
-    }
-    
-    if (savedFontSize) {
-      setFontSize(savedFontSize)
-      applyFontSize(savedFontSize)
-    }
-  }, [])
-
   const applyTheme = (newTheme: Theme) => {
     const root = document.documentElement
     
@@ -54,6 +36,30 @@ export function AccessibilityMenu() {
     root.classList.remove("text-normal", "text-large", "text-xlarge")
     root.classList.add(`text-${size}`)
   }
+
+  useEffect(() => {
+    setMounted(true)
+    const savedTheme = localStorage.getItem("theme") as Theme | null
+    const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
+    
+    if (savedTheme) {
+      setTheme(savedTheme)
+    } else {
+      setTheme("system")
+    }
+    
+    if (savedFontSize) {
+      setFontSize(savedFontSize)
+    }
+  }, [])
+
+  useEffect(() => {
+    applyTheme(theme)
+  }, [theme])
+
+  useEffect(() => {
+    applyFontSize(fontSize)
+  }, [fontSize])
 
   const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme)

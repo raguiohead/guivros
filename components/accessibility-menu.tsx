@@ -20,60 +20,41 @@ export function AccessibilityMenu() {
   const [fontSize, setFontSize] = useState<FontSize>("normal")
   const [mounted, setMounted] = useState(false)
 
-  const applyTheme = (newTheme: Theme) => {
-    const root = document.documentElement
-    
-    if (newTheme === "system") {
-      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-      root.classList.toggle("dark", systemDark)
-    } else {
-      root.classList.toggle("dark", newTheme === "dark")
-    }
-  }
-
-  const applyFontSize = (size: FontSize) => {
-    const root = document.documentElement
-    root.classList.remove("text-normal", "text-large", "text-xlarge")
-    root.classList.add(`text-${size}`)
-  }
-
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null
     const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
     
-    if (savedTheme) {
-      setTheme(savedTheme)
-      applyTheme(savedTheme)
-    } else {
-      applyTheme("system")
-    }
-    
-    if (savedFontSize) {
-      setFontSize(savedFontSize)
-      applyFontSize(savedFontSize)
-    }
+    if (savedTheme) setTheme(savedTheme)
+    if (savedFontSize) setFontSize(savedFontSize)
     
     setMounted(true)
   }, [])
 
   useEffect(() => {
-    applyTheme(theme)
+    const root = document.documentElement
+    
+    if (theme === "system") {
+      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      root.classList.toggle("dark", systemDark)
+    } else {
+      root.classList.toggle("dark", theme === "dark")
+    }
   }, [theme])
 
   useEffect(() => {
-    applyFontSize(fontSize)
+    const root = document.documentElement
+    root.classList.remove("text-normal", "text-large", "text-xlarge")
+    root.classList.add(`text-${fontSize}`)
   }, [fontSize])
 
   const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme)
     localStorage.setItem("theme", newTheme)
-    applyTheme(newTheme)
   }
 
   const handleFontSizeChange = (size: FontSize) => {
     setFontSize(size)
     localStorage.setItem("fontSize", size)
-    applyFontSize(size)
   }
 
   const increaseFontSize = () => {

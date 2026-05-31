@@ -38,19 +38,22 @@ export function AccessibilityMenu() {
   }
 
   useEffect(() => {
-    setMounted(true)
     const savedTheme = localStorage.getItem("theme") as Theme | null
     const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
     
     if (savedTheme) {
       setTheme(savedTheme)
+      applyTheme(savedTheme)
     } else {
-      setTheme("system")
+      applyTheme("system")
     }
     
     if (savedFontSize) {
       setFontSize(savedFontSize)
+      applyFontSize(savedFontSize)
     }
+    
+    setMounted(true)
   }, [])
 
   useEffect(() => {

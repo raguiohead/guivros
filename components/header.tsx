@@ -2,6 +2,7 @@
 
 import { Book } from "lucide-react"
 import { AccessibilityMenu } from "./accessibility-menu"
+import { ThemeToggle } from "./theme-toggle"
 
 export function Header() {
   return (
@@ -17,7 +18,10 @@ export function Header() {
           <p className="text-xs text-muted-foreground hidden sm:block">
             livros usados com carinho
           </p>
-          <AccessibilityMenu />
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <AccessibilityMenu />
+          </div>
         </div>
       </div>
     </header>

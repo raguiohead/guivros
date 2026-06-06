@@ -50,7 +50,8 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: cspHeader,
+            // Adicione 'unsafe-inline' à lista do script-src
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://va.vercel-scripts.com; style-src 'self' 'unsafe-inline';"
           },
         ],
       },

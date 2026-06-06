@@ -40,15 +40,17 @@ export function BookGallery({ title, images }: BookGalleryProps) {
         {images.length > 1 && (
           <>
             <button
-              onClick={prevImage}
-              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); prevImage(); }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors z-10"
               aria-label="Imagem anterior"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
-              onClick={nextImage}
-              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors"
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); nextImage(); }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-background/80 backdrop-blur-sm border border-border text-foreground hover:bg-background transition-colors z-10"
               aria-label="Próxima imagem"
             >
               <ChevronRight className="w-5 h-5" />
@@ -70,7 +72,8 @@ export function BookGallery({ title, images }: BookGalleryProps) {
           {images.map((image, index) => (
             <button
               key={index}
-              onClick={() => setCurrentImageIndex(index)}
+              type="button"
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); setCurrentImageIndex(index); }}
               className={`relative w-16 h-20 rounded-md overflow-hidden border-2 transition-all ${
                 index === currentImageIndex 
                   ? "border-foreground" 

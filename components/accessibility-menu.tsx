@@ -31,56 +31,29 @@ export function AccessibilityMenu() {
     }
   }
 
-const applyFontSize = (size: FontSize) => {
-  const root = document.documentElement
-  root.classList.remove("text-normal", "text-large", "text-xlarge")
-  root.classList.add(`text-${size}`)
-}
+  const applyFontSize = (size: FontSize) => {
+    const root = document.documentElement
+    root.classList.remove("text-normal", "text-large", "text-xlarge")
+    root.classList.add(`text-${size}`)
+  }
 
   useEffect(() => {
+    // Desativado porque precisamos de uma re-renderização síncrona 
+    // após a montagem para evitar erros de hidratação (SSR vs Client).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true)
     const savedTheme = localStorage.getItem("theme") as Theme | null
     const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
     
     if (savedTheme) {
       setTheme(savedTheme)
-    } else {
-      setTheme("system")
-    }
-    
-    if (savedFontSize) {
-      setFontSize(savedFontSize)
-    }
-  }, [])
-
-  useEffect(() => {
-    applyTheme(theme)
-  }, [theme])
-
-  useEffect(() => {
-    applyFontSize(fontSize)
-  }, [fontSize])
-
-export function AccessibilityMenu() {
-  const [theme, setTheme] = useState<Theme>("system")
-  const [fontSize, setFontSize] = useState<FontSize>("normal")
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme | null
-    const savedFontSize = localStorage.getItem("fontSize") as FontSize | null
-    
-    if (savedTheme) {
-      // 2. Desativamos o aviso especificamente aqui. 
-      // Em SSR, atualizar o estado após a montagem inicial do cliente é o comportamento desejado.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setTheme(savedTheme)
       applyTheme(savedTheme)
     } else {
+      setTheme("system")
       applyTheme("system")
     }
     
     if (savedFontSize) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFontSize(savedFontSize)
       applyFontSize(savedFontSize)
     }
@@ -103,7 +76,7 @@ export function AccessibilityMenu() {
       window.removeEventListener("storage", handleStorageChange)
       clearInterval(interval)
     }
-  }, []) 
+  }, [])
 
   const handleThemeChange = (newTheme: Theme) => {
     setTheme(newTheme)
@@ -130,6 +103,19 @@ export function AccessibilityMenu() {
   const resetAccessibility = () => {
     handleThemeChange("system")
     handleFontSizeChange("normal")
+  }
+
+  if (!mounted) {
+    return (
+      <Button 
+        variant="outline" 
+        size="icon" 
+        className="rounded-full w-9 h-9"
+        aria-label="Acessibilidade"
+      >
+        <AccessibilityIcon className="w-5 h-5" />
+      </Button>
+    )
   }
 
   return (

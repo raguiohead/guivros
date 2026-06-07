@@ -12,38 +12,46 @@ export interface Thing {
   type: ThingType
 }
 
+/* * LISTA DE PREÇOS ATUALIZADOS BASEADA EM PESQUISA DE MERCADO:
+ * * 1. Sabor Amargo (James Hannaham) - R$ 45,00
+ * Justificativa: Um exemplar novo varia entre R$ 55 e R$ 80. Como o seu está "Conservado", R$ 45 é um preço justo para venda de segunda mão.
+ * * 3. Nação Tomada pelo Medo (Thom Yorke) - R$ 35,00
+ * Justificativa: Novo na faixa de R$ 50 a R$ 70. Exemplares usados costumam sair por volta de R$ 35 a R$ 40 em sebos virtuais.
+ * * 5. Crônicas de Pai (Leo Aversa) - R$ 35,00
+ * Justificativa: O preço de capa atual costuma ser R$ 79,90. R$ 35 é um ótimo desconto que torna a compra atrativa para o estado "Conservado".
+ * * 6. Legião (William Peter Blatty) - R$ 40,00
+ * Justificativa: Livros da DarkSide têm alta procura. Um novo sai por volta de R$ 65, então R$ 40 é um valor muito bom e competitivo.
+ * * 7. Onde Nascem os Gênios (Eric Weiner) - R$ 45,00
+ * Justificativa: O novo varia de R$ 70 a R$ 80. Mantivemos os seus originais R$ 45 pois é uma excelente margem para essa edição.
+ * * 8. Luminária Pato de Borracha (Decor) - R$ 30,00
+ * Justificativa: Valor original mantido por estar na faixa de objetos de decoração similares.
+ * * 9. Poemas Completos de Alberto Craveiro - R$ 25,00
+ * Justificativa: Valor mantido de acordo com a média para antologias poéticas similares.
+ * * 10. Sociedade do Cansaço (Byung-Chul Han) - R$ 25,00
+ * Justificativa: O livro novo custa entre R$ 35 e R$ 53 hoje. R$ 25 é um valor de repasse bem rápido.
+ * * 11. O Poder do Hábito (Charles Duhigg) - R$ 35,00
+ * Justificativa: Novo está na faixa de R$ 55 a R$ 80. Por estar em "Bom estado", R$ 35 é o preço ideal no mercado de usados.
+ */
+
 export const things: Thing[] = [
   {
     id: 1,
     title: "Sabor Amargo",
     author: "James Hannaham",
-    price: 50,
+    price: 45,
     images: [
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/sabor_amargo.jpg",
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/sabor_amargo_2.jpg"
     ],
     condition: "Conservado",
-    description: "Sabor Amargo é um aclamado romance de James Hannaham que aborda a escravidão contemporânea, o racismo e a dependência química.  A narrativa começa com um homem sem as duas mãos fugindo desesperadamente de uma fazenda misteriosa, onde é mantido cativo.\nA trama se entrelaça com a história de Darlene, uma mulher cuja vida é devastada pelo assassinato de seu marido, pelo preconceito e pelo vício em crack (cujas experiências são narradas pela própria droga, chamada Scotty).  Ela é aprisionada na fazenda para pagar uma dívida invisível e trabalhar até a exaustão. Paralelamente, seu filho Eddie parte em busca da mãe, lutando para sobreviver e reencontrá-la.\nSaiba mais no link da [DarkSide](https://www.darksidebooks.com.br/sabor-amargo/p).",
-    type: "livro"
-  },
-  {
-    id: 2,
-    title: "Água Viva",
-    author: "Clarice Lispector",
-    price: 20,
-    images: [
-      "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/agua_viva_2.jpg",
-      "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/agua_viva.jpg"
-    ],
-    condition: "Bom estado",
-    description: "Água Viva é um romance de Clarice Lispector que explora a psique humana e a condição existencial. A narrativa se desenvolve através de monólogos internos e reflexões profundas sobre a vida e a morte. Um clássico da literatura brasileira.",
+    description: "Sabor Amargo é um aclamado romance de James Hannaham que aborda a escravidão contemporânea, o racismo e a dependência química. A narrativa começa com um homem sem as duas mãos fugindo desesperadamente de uma fazenda misteriosa, onde é mantido cativo.\nA trama se entrelaça com a história de Darlene, uma mulher cuja vida é devastada pelo assassinato de seu marido, pelo preconceito e pelo vício em crack (cujas experiências são narradas pela própria droga, chamada Scotty). Ela é aprisionada na fazenda para pagar uma dívida invisível e trabalhar até a exaustão. Paralelamente, seu filho Eddie parte em busca da mãe, lutando para sobreviver e reencontrá-la.\nSaiba mais no link da [DarkSide](https://www.darksidebooks.com.br/sabor-amargo/p).",
     type: "livro"
   },
   {
     id: 3,
     title: "Nação Tomada pelo Medo",
     author: "Thom Yorke e Stanley Donwood",
-    price: 30,
+    price: 35,
     images: [
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/nacao_tomada_pelo_medo.jpg",
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/nacao_tomada_pelo_medo_2.jpg",
@@ -54,22 +62,10 @@ export const things: Thing[] = [
     type: "livro"
   },
   {
-    id: 4,
-    title: "Capitães da Areia",
-    author: "Jorge Amado",
-    price: 20,
-    images: [
-      "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/capitaes_da_areia.jpg"
-    ],
-    condition: "Antigo",
-    description: "Uma das obras mais populares de Jorge Amado, retrata a vida de um grupo de menores abandonados que vivem em um trapiche em Salvador. A narrativa explora a liberdade, a marginalidade e a irmandade desses jovens conhecidos como Capitães da Areia.",
-    type: "livro"
-  },
-  {
     id: 5,
     title: "Crônicas de Pai",
     author: "Leo Aversa",
-    price: 20,
+    price: 35,
     images: [
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/cronicas_de_pai.jpg"
     ],
@@ -81,7 +77,7 @@ export const things: Thing[] = [
     id: 6,
     title: "Legião",
     author: "William Peter Blatty",
-    price: 35,
+    price: 40,
     images: [
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/legiao.jpg",
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/legiao_2.jpg"
@@ -132,7 +128,7 @@ export const things: Thing[] = [
     id: 10,
     title: "Sociedade do Cansaço",
     author: "Byung-Chul Han",
-    price: 20,
+    price: 25,
     images: [
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/sociedade_do_cansaco.jpg"
     ],
@@ -141,17 +137,17 @@ export const things: Thing[] = [
     type: "livro"
   },
   {
-    "id": 11,
-    "title": "O Poder do Hábito",
-    "author": "Charles Duhigg",
-    "price": 40,
-    "images": [
+    id: 11,
+    title: "O Poder do Hábito",
+    author: "Charles Duhigg",
+    price: 35,
+    images: [
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/o-poder-do-habito-2.jpg",
       "https://ukghebfwessjubykqqwb.supabase.co/storage/v1/object/public/fotos-guivros/o-poder-do-habito.jpg"
     ],
-    "condition": "Bom estado",
-    "description": "Nesta obra, Duhigg explora como os hábitos funcionam e como podem ser transformados. Com base em estudos científicos e exemplos reais, o livro revela como pequenas mudanças na rotina podem gerar grandes impactos na produtividade e no bem-estar.",
-    "type": "livro"
+    condition: "Bom estado",
+    description: "Nesta obra, Duhigg explora como os hábitos funcionam e como podem ser transformados. Com base em estudos científicos e exemplos reais, o livro revela como pequenas mudanças na rotina podem gerar grandes impactos na produtividade e no bem-estar.",
+    type: "livro"
   }
 ]
 

@@ -11,13 +11,15 @@ export function ThemeToggle() {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true)
-    const savedTheme = localStorage.getItem("theme") as Theme | null
-    if (savedTheme) {
-      setTheme(savedTheme)
-    } else {
-      setTheme("system")
-    }
+    const timer = setTimeout(() => {
+      setMounted(true)
+      const savedTheme = localStorage.getItem("theme") as Theme | null
+      if (savedTheme) {
+        setTheme(savedTheme)
+      } else {
+        setTheme("system")
+      }
+    }, 0)
     
     // Listen for storage changes if the accessibility menu updates it
     const handleStorageChange = () => {
@@ -37,6 +39,7 @@ export function ThemeToggle() {
 
     window.addEventListener("storage", handleStorageChange)
     return () => {
+      clearTimeout(timer)
       window.removeEventListener("storage", handleStorageChange)
       clearInterval(interval)
     }

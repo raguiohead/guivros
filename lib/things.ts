@@ -1,5 +1,6 @@
 export type BookCondition = "Conservado" | "Bom estado" | "Antigo"
 export type ThingType = "livro" | "objeto"
+export type ThingStatus = "disponivel" | "reservado" | "vendido"
 
 export interface Thing {
   id: number
@@ -10,6 +11,7 @@ export interface Thing {
   condition: BookCondition
   description: string
   type: ThingType
+  status?: ThingStatus
 }
 
 /* * LISTA DE PREÇOS ATUALIZADOS BASEADA EM PESQUISA DE MERCADO:
@@ -45,7 +47,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "Sabor Amargo é um aclamado romance de James Hannaham que aborda a escravidão contemporânea, o racismo e a dependência química. A narrativa começa com um homem sem as duas mãos fugindo desesperadamente de uma fazenda misteriosa, onde é mantido cativo.\nA trama se entrelaça com a história de Darlene, uma mulher cuja vida é devastada pelo assassinato de seu marido, pelo preconceito e pelo vício em crack (cujas experiências são narradas pela própria droga, chamada Scotty). Ela é aprisionada na fazenda para pagar uma dívida invisível e trabalhar até a exaustão. Paralelamente, seu filho Eddie parte em busca da mãe, lutando para sobreviver e reencontrá-la.\nSaiba mais no link da [DarkSide](https://www.darksidebooks.com.br/sabor-amargo/p).",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   },
   {
     id: 3,
@@ -59,7 +62,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "Muito mais que um livro, Nação Tomada pelo Medo é uma experiência — uma documentação belíssima do processo de artistas incomparáveis, e um espelho dos medos, presságios e fantasias invocados pelo mundo à medida que os seus cidadãos enfrentam um admirável novo milênio.",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   },
   {
     id: 5,
@@ -71,7 +75,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "Uma coletânea de textos bem-humorados e sensíveis sobre as descobertas, medos e alegrias da paternidade no mundo contemporâneo. Leo Aversa compartilha crônicas que ressoam com qualquer um que viva a montanha-russa de criar um filho.",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   },
   {
     id: 6,
@@ -84,7 +89,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "A continuação espiritual de O Exorcista. Neste thriller psicológico e sobrenatural da DarkSide Books, o detetive Kinderman investiga uma série de assassinatos brutais que lembram o modus operandi de um serial killer morto há anos.\nSaiba mais no link da [DarkSide](https://www.darksidebooks.com.br/legiao/p).",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   },
   {
     id: 7,
@@ -97,7 +103,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "Nesta edição primorosa da DarkSide Books, Eric Weiner viaja por cidades e épocas que produziram surtos criativos — como a Atenas Antiga e o Vale do Silício — para entender como o ambiente molda a genialidade.\nSaiba mais no link da [DarkSide](https://www.darksidebooks.com.br/onde-nascem-os-genios-99/p).",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   },
   {
     id: 8,
@@ -110,7 +117,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "Uma luminária divertida e moderna em formato de pato de borracha. Perfeita para decoração de quartos ou escritórios, proporcionando uma luz suave e um toque de criatividade ao ambiente.",
-    type: "objeto"
+    type: "objeto",
+    status: "disponivel"
   },
   {
     id: 9,
@@ -122,7 +130,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "Uma reunião da obra poética de Alberto Craveiro, nome importante da literatura cearense. Seus versos transitam entre o cotidiano e a introspecção, preservando a memória e a sensibilidade lírica do autor.",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   },
   {
     id: 10,
@@ -134,7 +143,8 @@ export const things: Thing[] = [
     ],
     condition: "Conservado",
     description: "Neste ensaio filosófico, Han discute como a sociedade contemporânea passou de uma cultura de disciplina para uma cultura de desempenho, levando indivíduos à exaustão e a transtornos como o burnout.",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   },
   {
     id: 11,
@@ -147,7 +157,8 @@ export const things: Thing[] = [
     ],
     condition: "Bom estado",
     description: "Nesta obra, Duhigg explora como os hábitos funcionam e como podem ser transformados. Com base em estudos científicos e exemplos reais, o livro revela como pequenas mudanças na rotina podem gerar grandes impactos na produtividade e no bem-estar.",
-    type: "livro"
+    type: "livro",
+    status: "disponivel"
   }
 ]
 

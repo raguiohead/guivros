@@ -60,9 +60,26 @@ export default async function ThingPage({ params }: ThingPageProps) {
 
           {/* Detalhes do item */}
           <div className="flex flex-col">
-            <span className={`self-start text-xs px-2.5 py-1 rounded-full mb-3 ${conditionColor[thing.condition]}`}>
-              {thing.condition}
-            </span>
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              <span className={`text-xs px-2.5 py-1 rounded-full ${conditionColor[thing.condition]}`}>
+                {thing.condition}
+              </span>
+              {thing.status === "vendido" && (
+                <span className="text-xs px-2.5 py-1 rounded-full bg-destructive text-destructive-foreground font-semibold uppercase tracking-wider">
+                  Vendido
+                </span>
+              )}
+              {thing.status === "reservado" && (
+                <span className="text-xs px-2.5 py-1 rounded-full bg-amber-500 text-white font-medium uppercase tracking-wider">
+                  Reservado
+                </span>
+              )}
+              {(!thing.status || thing.status === "disponivel") && (
+                <span className="text-xs px-2.5 py-1 rounded-full bg-muted text-muted-foreground border border-border">
+                  Disponível para envio
+                </span>
+              )}
+            </div>
 
             <h1 className="font-serif text-2xl md:text-3xl text-foreground mb-1 text-balance">
               {thing.title}
@@ -72,7 +89,9 @@ export default async function ThingPage({ params }: ThingPageProps) {
               {thing.author}
             </p>
 
-            <p className="text-3xl font-medium text-foreground mb-6">
+            <p className={`text-3xl font-medium mb-6 ${
+              thing.status === "vendido" ? "text-muted-foreground line-through" : "text-foreground"
+            }`}>
               {formatPrice(thing.price)}
             </p>
 
@@ -83,7 +102,11 @@ export default async function ThingPage({ params }: ThingPageProps) {
               </div>
             </div>
 
-            <WhatsAppButton title={thing.title} price={formatPrice(thing.price)} />
+            <WhatsAppButton 
+              title={thing.title} 
+              price={formatPrice(thing.price)} 
+              status={thing.status || "disponivel"}
+            />
 
             <p className="text-xs text-muted-foreground text-center mt-3">
               Você será redirecionado para o WhatsApp

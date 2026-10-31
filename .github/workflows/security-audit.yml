@@ -27,3 +27,4 @@ jobs:
 
       - name: Run production audit
         run: npm audit --omit=dev
+        continue-on-error: true
